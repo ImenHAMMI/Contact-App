@@ -1,0 +1,27 @@
+.contactCard {
+  width: 200px;
+  height: 260px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  cursor: pointer;
+  margin-top: 2%;
+  /* border: 1px solid black; */
+}
+.contactCard img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  /* border: 1px solid black; */
+  margin-bottom: 2%;
+}
+.cardIcon {
+  color: "rgba(255, 255, 255, 0.54)";
+}
+span {
+  font-family: cursive;
+  font-size: 20px;
+}
+.infoContact {
+  border-radius: 5px;
+}

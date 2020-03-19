@@ -1,0 +1,34 @@
+.Information {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.headerInfo {
+  /* border: 1px solid black; */
+  padding: 8%;
+  background-color: teal;
+}
+.MainInfo {
+  padding: 1.5%;
+  display: flex;
+  /* border: 1px solid black; */
+  color: black;
+  text-align: left;
+  margin-top: 2%;
+}
+.MainInfo span {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.54);
+}
+.Icon {
+  color: rgba(0, 0, 0, 0.54);
+  margin-right: 2.5%;
+  margin-top: 1%;
+  margin-left: 2%;
+  /* border: 1px solid black; */
+}
+.Details {
+  display: flex;
+  flex-direction: column;
+}
