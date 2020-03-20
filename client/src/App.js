@@ -62,8 +62,14 @@ class App extends React.Component {
           <Route
             exact
             path="/contact/:id"
-            component={InfoContact}
-            // render={() => <InfoContact />}
+            // component={InfoContact}
+            render={props => (
+              <InfoContact
+                {...props}
+                deleteContact={this.deleteContact}
+                addContact={this.editContact}
+              />
+            )}
           />
           <Route
             exact
@@ -86,8 +92,8 @@ class App extends React.Component {
                       <Contact
                         key={key}
                         contact={contact}
-                        deleteContact={this.deleteContact}
-                        addContact={this.editContact}
+                        // deleteContact={this.deleteContact}
+                        // addContact={this.editContact}
                       />
                     ))}
                   </GridList>

@@ -1,6 +1,4 @@
 import React from "react";
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
-import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 // import purple from "@material-ui/core/colors/purple";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,18 +7,17 @@ import GridListTile from "@material-ui/core/GridListTile";
 import { Link } from "react-router-dom";
 
 import "../css/Contact.css";
-import ModalContact from "./ModalContact";
 
 class Contact extends React.Component {
-  state = {
-    open: false
-  };
+  // state = {
+  //   open: false
+  // };
 
-  handleOpen = () => {
-    this.setState({
-      open: !this.state.open
-    });
-  };
+  // handleOpen = () => {
+  //   this.setState({
+  //     open: !this.state.open
+  //   });
+  // };
 
   render() {
     const { _id, Name, /*Mobile, EMail,*/ Img } = this.props.contact;
@@ -74,7 +71,7 @@ class Contact extends React.Component {
           <DeleteRoundedIcon onClick={() => this.props.deleteContact(_id)} />
         </div> */}
 
-        {this.state.open ? (
+        {/* {this.state.open ? (
           <ModalContact
             open={this.state.open}
             handleOpen={this.handleOpen}
@@ -82,7 +79,7 @@ class Contact extends React.Component {
             isEdit={true}
             contact={this.props.contact}
           />
-        ) : null}
+        ) : null} */}
       </div>
     );
   }

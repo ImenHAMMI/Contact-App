@@ -2,16 +2,28 @@ import React from "react";
 import axios from "axios";
 import PhoneRoundedIcon from "@material-ui/icons/PhoneRounded";
 import EmailRoundedIcon from "@material-ui/icons/EmailRounded";
-import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
-import FaceRoundedIcon from "@material-ui/icons/FaceRounded";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
+
+import { Redirect, Link } from "react-router-dom";
 
 import "../css/InfoContact.css";
+import ModalContact from "./ModalContact";
 
 class InfoContact extends React.Component {
   state = {
-    contact: {}
+    contact: {},
+    open: false
   };
+
+  handleOpen = () => {
+    this.setState({
+      open: !this.state.open
+    });
+  };
+
   componentDidMount() {
+    console.log(this.props);
     const id = this.props.match.params.id;
     axios
       .get(`/contact/${id}`)
@@ -19,10 +31,10 @@ class InfoContact extends React.Component {
       .catch(error => console.error(error));
   }
   render() {
-    const { Name, Mobile, EMail } = {
+    const { _id, Name, Mobile, EMail } = {
       ...this.state.contact
     };
-
+    console.log(this.state.contact);
     if (!this.state.contact) {
       return <p>Loading</p>;
     }
@@ -46,6 +58,23 @@ class InfoContact extends React.Component {
             <span>E-Mail</span>
           </div>
         </div>
+        <div>
+          <EditRoundedIcon onClick={() => this.handleOpen()} />
+          <Link to="/">
+            <DeleteRoundedIcon onClick={() => this.props.deleteContact(_id)} />
+          </Link>
+        </div>
+        {this.state.open ? (
+          //   <Redirect to="/">
+          <ModalContact
+            open={this.state.open}
+            handleOpen={this.handleOpen}
+            addContact={this.props.addContact}
+            isEdit={true}
+            contact={this.state.contact}
+          />
+        ) : //   </Link>
+        null}
       </div>
     );
   }

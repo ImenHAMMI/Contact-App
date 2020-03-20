@@ -117,7 +117,17 @@ class ModalContact extends React.Component {
                     <span>Add</span>
                   </div>
                 ) : (
-                  <span>Edit</span>
+                  <div
+                    className="btn-add"
+                    onClick={() => {
+                      addContact(this.state);
+                      handleOpen();
+                    }}
+                  >
+                    <PersonAddRoundedIcon className="Icon" />
+                    {/* <i className="fas fa-user-edit"></i> */}
+                    <span>Edit</span>
+                  </div>
                 )}
               </form>
             </div>
