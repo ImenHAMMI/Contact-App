@@ -13,7 +13,10 @@
   height: 200px;
   border-radius: 100px;
   /* border: 1px solid black; */
-  margin-bottom: 2%;
+  margin-bottom: 24%;
+}
+.contactCard i {
+  margin-bottom: 27%;
 }
 .cardIcon {
   color: "rgba(255, 255, 255, 0.54)";

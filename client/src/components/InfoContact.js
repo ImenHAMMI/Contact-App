@@ -5,8 +5,6 @@ import EmailRoundedIcon from "@material-ui/icons/EmailRounded";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 
-import { Redirect, Link } from "react-router-dom";
-
 import "../css/InfoContact.css";
 import ModalContact from "./ModalContact";
 
@@ -23,7 +21,7 @@ class InfoContact extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     const id = this.props.match.params.id;
     axios
       .get(`/contact/${id}`)
@@ -31,11 +29,16 @@ class InfoContact extends React.Component {
       .catch(error => console.error(error));
   }
 
+  handleClick = () => {
+    this.props.deleteContact(this.state.contact._id);
+    this.props.history.push("/");
+  };
+
   render() {
-    const { _id, Name, Mobile, EMail } = {
+    const { Name, Mobile, EMail } = {
       ...this.state.contact
     };
-    console.log(this.state.contact);
+    // console.log(this.state.contact);
     if (!this.state.contact) {
       return <p>Loading</p>;
     }
@@ -61,20 +64,19 @@ class InfoContact extends React.Component {
         </div>
         <div>
           <EditRoundedIcon
-            onClick={() => this.handleOpen()}
+            onClick={() => {
+              this.handleOpen();
+            }}
             className="IconAction IconPostionEdit"
             style={{ fontSize: 60 }}
           />
-          <Link to="/">
-            <DeleteRoundedIcon
-              onClick={() => this.props.deleteContact(_id)}
-              className="IconAction IconPostionDelete"
-              style={{ fontSize: 60 }}
-            />
-          </Link>
+          <DeleteRoundedIcon
+            onClick={this.handleClick}
+            className="IconAction IconPostionDelete"
+            style={{ fontSize: 60 }}
+          />
         </div>
         {this.state.open ? (
-          //   <Redirect to="/">
           <ModalContact
             open={this.state.open}
             handleOpen={this.handleOpen}
@@ -82,8 +84,7 @@ class InfoContact extends React.Component {
             isEdit={true}
             contact={this.state.contact}
           />
-        ) : //   </Link>
-        null}
+        ) : null}
       </div>
     );
   }

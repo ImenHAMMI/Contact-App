@@ -1,15 +1,12 @@
 import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
-// import purple from "@material-ui/core/colors/purple";
 import PhoneRoundedIcon from "@material-ui/icons/PhoneRounded";
 import EmailRoundedIcon from "@material-ui/icons/EmailRounded";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import FaceRoundedIcon from "@material-ui/icons/FaceRounded";
-import { Link } from "react-router-dom";
 
 import "../css/ModalContact.css";
 
@@ -46,6 +43,7 @@ class ModalContact extends React.Component {
       this.props.addContact(this.state);
       this.props.handleOpen();
     }
+    if (this.props.isEdit) window.location.reload();
   };
 
   render() {
@@ -54,17 +52,15 @@ class ModalContact extends React.Component {
     return (
       <div>
         {!isEdit ? (
-          <Link to="/addContact">
-            <div className="AddContact" onClick={handleOpen}>
-              <PersonAddRoundedIcon
-                style={{
-                  color: "rgba(0, 0, 0, 0.54)",
-                  fontSize: 50
-                }}
-              />
-              <span>Add Contact</span>
-            </div>
-          </Link>
+          <div className="AddContact" onClick={handleOpen}>
+            <PersonAddRoundedIcon
+              style={{
+                color: "rgba(0, 0, 0, 0.54)",
+                fontSize: 50
+              }}
+            />
+            <span>Add Contact</span>
+          </div>
         ) : null}
         <Modal
           aria-labelledby="transition-modal-title"

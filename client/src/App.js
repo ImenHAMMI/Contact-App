@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-// import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -34,11 +33,17 @@ class App extends React.Component {
       .then(res => console.log(res.data))
       .catch(error => console.error(error));
 
-  deleteContact = id =>
-    axios.delete(`/deleteContact/${id}`).then(this.getContacts());
-
+  deleteContact = id => {
+    axios
+      .delete(`/deleteContact/${id}`)
+      .then(this.getContacts())
+      .catch(error => console.error(error));
+  };
   addContact = newContact =>
-    axios.post("/addContact", newContact).then(this.getContacts());
+    axios
+      .post("/addContact", newContact)
+      .then(this.getContacts())
+      .catch(error => console.error(error));
 
   editContact = editedContact =>
     axios
@@ -48,7 +53,8 @@ class App extends React.Component {
         EMail: editedContact.EMail,
         Img: editedContact.Img
       })
-      .then(this.getContacts());
+      .then(this.getContacts())
+      .catch(error => console.error(error));
 
   componentDidMount() {
     this.getContacts();
@@ -66,11 +72,11 @@ class App extends React.Component {
                 {...props}
                 deleteContact={this.deleteContact}
                 addContact={this.editContact}
-                // getContacts={this.getContacts}
               />
             )}
           />
           <Route
+            exact
             path="/"
             render={() => (
               <>
@@ -96,17 +102,12 @@ class App extends React.Component {
                     ))}
                   </GridList>
                 </div>
+                <ModalContact
+                  open={this.state.open}
+                  handleOpen={this.handleOpen}
+                  addContact={this.addContact}
+                />
               </>
-            )}
-          />
-          <Route
-            path="/"
-            render={() => (
-              <ModalContact
-                open={this.state.open}
-                handleOpen={this.handleOpen}
-                addContact={this.addContact}
-              />
             )}
           />
         </BrowserRouter>
