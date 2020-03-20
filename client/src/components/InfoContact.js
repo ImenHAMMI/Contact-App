@@ -30,6 +30,7 @@ class InfoContact extends React.Component {
       .then(res => this.setState({ contact: res.data[0] }))
       .catch(error => console.error(error));
   }
+
   render() {
     const { _id, Name, Mobile, EMail } = {
       ...this.state.contact
@@ -59,9 +60,17 @@ class InfoContact extends React.Component {
           </div>
         </div>
         <div>
-          <EditRoundedIcon onClick={() => this.handleOpen()} />
+          <EditRoundedIcon
+            onClick={() => this.handleOpen()}
+            className="IconAction IconPostionEdit"
+            style={{ fontSize: 60 }}
+          />
           <Link to="/">
-            <DeleteRoundedIcon onClick={() => this.props.deleteContact(_id)} />
+            <DeleteRoundedIcon
+              onClick={() => this.props.deleteContact(_id)}
+              className="IconAction IconPostionDelete"
+              style={{ fontSize: 60 }}
+            />
           </Link>
         </div>
         {this.state.open ? (

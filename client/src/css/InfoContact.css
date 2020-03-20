@@ -32,3 +32,22 @@
   display: flex;
   flex-direction: column;
 }
+.IconAction {
+  color: rgba(0, 0, 0, 0.54);
+  border-radius: 35px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.63);
+}
+.IconAction:hover {
+  box-shadow: 0 5px 10px 0 #d3cfc9;
+}
+.IconPostionEdit {
+  position: absolute;
+  top: 34%;
+  margin-left: 27%;
+}
+.IconPostionDelete {
+  position: absolute;
+  top: 34%;
+  margin-left: 31%;
+}

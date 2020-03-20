@@ -35,7 +35,7 @@ MongoClient.connect(mongo_url, { useUnifiedTopology: true }, (err, client) => {
   /******delete */
   app.delete("/deleteContact/:id", (req, res) => {
     const contactId = req.params.id;
-    db.collection("contactlist").remove(
+    db.collection("contactlist").deleteOne(
       { _id: ObjectID(contactId) },
       (err, data) => {
         err ? console.error(err) : res.send(data);
@@ -52,7 +52,7 @@ MongoClient.connect(mongo_url, { useUnifiedTopology: true }, (err, client) => {
   /*****edit */
   app.put("/editContact/:id", (req, res) => {
     const id = req.params.id;
-    db.collection("contactlist").update(
+    db.collection("contactlist").updateOne(
       { _id: ObjectID(id) },
       { $set: req.body },
       (err, data) => (err ? console.error(err) : res.send(data))

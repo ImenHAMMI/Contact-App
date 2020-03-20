@@ -68,11 +68,11 @@ class App extends React.Component {
                 {...props}
                 deleteContact={this.deleteContact}
                 addContact={this.editContact}
+                // getContacts={this.getContacts}
               />
             )}
           />
           <Route
-            exact
             path="/"
             render={() => (
               <>
@@ -98,12 +98,17 @@ class App extends React.Component {
                     ))}
                   </GridList>
                 </div>
-                <ModalContact
-                  open={this.state.open}
-                  handleOpen={this.handleOpen}
-                  addContact={this.addContact}
-                />
               </>
+            )}
+          />
+          <Route
+            path="/"
+            render={() => (
+              <ModalContact
+                open={this.state.open}
+                handleOpen={this.handleOpen}
+                addContact={this.addContact}
+              />
             )}
           />
         </BrowserRouter>

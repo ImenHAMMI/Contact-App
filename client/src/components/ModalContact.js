@@ -9,6 +9,7 @@ import PhoneRoundedIcon from "@material-ui/icons/PhoneRounded";
 import EmailRoundedIcon from "@material-ui/icons/EmailRounded";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import FaceRoundedIcon from "@material-ui/icons/FaceRounded";
+import { Link } from "react-router-dom";
 
 import "../css/ModalContact.css";
 
@@ -39,20 +40,31 @@ class ModalContact extends React.Component {
 
   changeHandler = e => this.setState({ [e.target.name]: e.target.value });
 
+  onSubmit = () => {
+    const isFilled = this.state.Name && this.state.Mobile && this.state.EMail;
+    if (isFilled) {
+      this.props.addContact(this.state);
+      this.props.handleOpen();
+    }
+  };
+
   render() {
-    const { open, handleOpen, addContact, isEdit } = this.props;
+    const { open, handleOpen, isEdit } = this.props;
+
     return (
       <div>
         {!isEdit ? (
-          <div className="AddContact" onClick={handleOpen}>
-            <PersonAddRoundedIcon
-              style={{
-                color: "rgba(0, 0, 0, 0.54)",
-                fontSize: 50
-              }}
-            />
-            <span>Add Contact</span>
-          </div>
+          <Link to="/addContact">
+            <div className="AddContact" onClick={handleOpen}>
+              <PersonAddRoundedIcon
+                style={{
+                  color: "rgba(0, 0, 0, 0.54)",
+                  fontSize: 50
+                }}
+              />
+              <span>Add Contact</span>
+            </div>
+          </Link>
         ) : null}
         <Modal
           aria-labelledby="transition-modal-title"
@@ -73,7 +85,7 @@ class ModalContact extends React.Component {
                   <PersonRoundedIcon className="Icon" />
                   <input
                     name="Name"
-                    placeholder="Name"
+                    placeholder="Name required"
                     defaultValue={this.state.Name}
                     onChange={this.changeHandler}
                   />
@@ -82,7 +94,7 @@ class ModalContact extends React.Component {
                   <PhoneRoundedIcon className="Icon" />
                   <input
                     name="Mobile"
-                    placeholder="Mobile"
+                    placeholder="Mobile required"
                     defaultValue={this.state.Mobile}
                     onChange={this.changeHandler}
                   />
@@ -91,7 +103,7 @@ class ModalContact extends React.Component {
                   <EmailRoundedIcon className="Icon" />
                   <input
                     name="EMail"
-                    placeholder="E-Mail"
+                    placeholder="E-Mail required"
                     defaultValue={this.state.EMail}
                     onChange={this.changeHandler}
                   />
@@ -106,24 +118,12 @@ class ModalContact extends React.Component {
                   />
                 </div>
                 {!isEdit ? (
-                  <div
-                    className="btn-add"
-                    onClick={() => {
-                      addContact(this.state);
-                      handleOpen();
-                    }}
-                  >
+                  <div className="btn-add" onClick={this.onSubmit}>
                     <PersonAddRoundedIcon className="Icon" />
                     <span>Add</span>
                   </div>
                 ) : (
-                  <div
-                    className="btn-add"
-                    onClick={() => {
-                      addContact(this.state);
-                      handleOpen();
-                    }}
-                  >
+                  <div className="btn-add" onClick={this.onSubmit}>
                     <PersonAddRoundedIcon className="Icon" />
                     {/* <i className="fas fa-user-edit"></i> */}
                     <span>Edit</span>
