@@ -6,8 +6,6 @@ import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { BrowserRouter, Route } from "react-router-dom";
 
-// import tileData from "./tileData";
-
 import "./App.css";
 import Contact from "./components/Contact";
 import ModalContact from "./components/ModalContact";
