@@ -43,7 +43,12 @@ class ModalContact extends React.Component {
       this.props.addContact(this.state);
       this.props.handleOpen();
     }
-    if (this.props.isEdit) window.location.reload();
+    this.setState({
+      Name: "",
+      Mobile: "",
+      EMail: "",
+      Img: ""
+    });
   };
 
   render() {

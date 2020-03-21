@@ -20,13 +20,19 @@ class InfoContact extends React.Component {
     });
   };
 
-  componentDidMount() {
-    // console.log(this.props);
+  getContact = () => {
     const id = this.props.match.params.id;
     axios
       .get(`/contact/${id}`)
       .then(res => this.setState({ contact: res.data[0] }))
       .catch(error => console.error(error));
+  };
+  componentDidMount() {
+    this.getContact();
+  }
+
+  componentDidUpdate() {
+    this.getContact();
   }
 
   handleClick = () => {

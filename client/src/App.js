@@ -30,19 +30,25 @@ class App extends React.Component {
           contacts: res.data
         })
       )
-      .then(res => console.log(res.data))
+      // .then(res => console.log(res.data))
       .catch(error => console.error(error));
 
   deleteContact = id => {
     axios
       .delete(`/deleteContact/${id}`)
-      .then(this.getContacts())
+      .then(() =>
+        this.setState({
+          contacts: this.state.contacts.filter(contact => contact._id !== id)
+        })
+      )
       .catch(error => console.error(error));
   };
   addContact = newContact =>
     axios
       .post("/addContact", newContact)
-      .then(this.getContacts())
+      .then(() =>
+        this.setState({ contacts: this.state.contacts.concat(newContact) })
+      )
       .catch(error => console.error(error));
 
   editContact = editedContact =>
@@ -53,7 +59,7 @@ class App extends React.Component {
         EMail: editedContact.EMail,
         Img: editedContact.Img
       })
-      .then(this.getContacts())
+      .then(() => this.getContacts())
       .catch(error => console.error(error));
 
   componentDidMount() {
