@@ -59,7 +59,13 @@ class App extends React.Component {
         EMail: editedContact.EMail,
         Img: editedContact.Img
       })
-      .then(() => this.getContacts())
+      .then(
+        this.setState({
+          contacts: this.state.contacts.map(contact =>
+            contact._id === editedContact.id ? editedContact : contact
+          )
+        })
+      )
       .catch(error => console.error(error));
 
   componentDidMount() {
