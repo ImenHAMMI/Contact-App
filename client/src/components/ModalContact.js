@@ -39,9 +39,14 @@ class ModalContact extends React.Component {
 
   onSubmit = () => {
     const isFilled = this.state.Name && this.state.Mobile && this.state.EMail;
+    // const regmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
     if (isFilled) {
+      // if (!regmail.test(this.state.EMail)) alert("Please enter a valid email");
+      // else {
       this.props.addContact(this.state);
       this.props.handleOpen();
+      // }
     }
     this.setState({
       Name: "",
@@ -104,6 +109,7 @@ class ModalContact extends React.Component {
                   <EmailRoundedIcon className="Icon" />
                   <input
                     name="EMail"
+                    type="email"
                     placeholder="E-Mail required"
                     defaultValue={this.state.EMail}
                     onChange={this.changeHandler}

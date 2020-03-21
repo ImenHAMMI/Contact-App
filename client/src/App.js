@@ -43,13 +43,14 @@ class App extends React.Component {
       )
       .catch(error => console.error(error));
   };
-  addContact = newContact =>
+  addContact = newContact => {
     axios
       .post("/addContact", newContact)
-      .then(() =>
-        this.setState({ contacts: this.state.contacts.concat(newContact) })
+      .then(res =>
+        this.setState({ contacts: this.state.contacts.concat(res.data[0]) })
       )
       .catch(error => console.error(error));
+  };
 
   editContact = editedContact =>
     axios

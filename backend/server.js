@@ -45,9 +45,10 @@ MongoClient.connect(mongo_url, { useUnifiedTopology: true }, (err, client) => {
   /*****add */
   app.post("/addContact", (req, res) => {
     let newContact = req.body;
-    db.collection("contactlist").insertOne(newContact, (err, data) =>
-      err ? console.error(err) : res.send(data)
-    );
+    db.collection("contactlist").insertOne(newContact, (err, data) => {
+      // console.log(data.ops);
+      err ? console.error(err) : res.send(data.ops);
+    });
   });
   /*****edit */
   app.put("/editContact/:id", (req, res) => {
