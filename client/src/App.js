@@ -1,8 +1,10 @@
 import React from "react";
-import axios from "axios";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
+
+import { connect } from "react-redux";
+import { getContacts } from "./js/actions/actionContact";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import "./App.css";
@@ -12,7 +14,6 @@ import InfoContact from "./components/InfoContact";
 
 class App extends React.Component {
   state = {
-    contacts: [],
     open: false
   };
 
@@ -22,72 +23,15 @@ class App extends React.Component {
     });
   };
 
-  getContacts = () =>
-    axios
-      .get("/contacts")
-      .then(res =>
-        this.setState({
-          contacts: res.data
-        })
-      )
-      // .then(res => console.log(res.data))
-      .catch(error => console.error(error));
-
-  deleteContact = id => {
-    axios
-      .delete(`/deleteContact/${id}`)
-      .then(() =>
-        this.setState({
-          contacts: this.state.contacts.filter(contact => contact._id !== id)
-        })
-      )
-      .catch(error => console.error(error));
-  };
-  addContact = newContact => {
-    axios
-      .post("/addContact", newContact)
-      .then(res =>
-        this.setState({ contacts: this.state.contacts.concat(res.data[0]) })
-      )
-      .catch(error => console.error(error));
-  };
-
-  editContact = editedContact =>
-    axios
-      .put(`/editContact/${editedContact.id}`, {
-        Name: editedContact.Name,
-        Mobile: editedContact.Mobile,
-        EMail: editedContact.EMail,
-        Img: editedContact.Img
-      })
-      .then(
-        this.setState({
-          contacts: this.state.contacts.map(contact =>
-            contact._id === editedContact.id ? editedContact : contact
-          )
-        })
-      )
-      .catch(error => console.error(error));
-
   componentDidMount() {
-    this.getContacts();
+    this.props.getContacts();
   }
+
   render() {
     return (
       <div className="App">
         <BrowserRouter>
-          <Route
-            exact
-            path="/contact/:id"
-            // component={InfoContact}
-            render={props => (
-              <InfoContact
-                {...props}
-                deleteContact={this.deleteContact}
-                addContact={this.editContact}
-              />
-            )}
-          />
+          <Route exact path="/contact/:id" component={InfoContact} />
           <Route
             exact
             path="/"
@@ -100,25 +44,23 @@ class App extends React.Component {
                       cols={2}
                       style={{ height: "auto" }}
                     >
-                      <ListSubheader component="div" className="Header">
+                      <ListSubheader
+                        component="div"
+                        className="Header"
+                        style={{ backgroundColor: "teal" }}
+                      >
                         <i className="fas fa-users"></i>
                         <span>Mes contacts</span>
                       </ListSubheader>
                     </GridListTile>
-                    {this.state.contacts.map((contact, key) => (
-                      <Contact
-                        key={key}
-                        contact={contact}
-                        // deleteContact={this.deleteContact}
-                        // addContact={this.editContact}
-                      />
+                    {this.props.contacts.map((contact, key) => (
+                      <Contact key={key} contact={contact} />
                     ))}
                   </GridList>
                 </div>
                 <ModalContact
                   open={this.state.open}
                   handleOpen={this.handleOpen}
-                  addContact={this.addContact}
                 />
               </>
             )}
@@ -128,4 +70,11 @@ class App extends React.Component {
     );
   }
 }
-export default App;
+
+const MapStateToProps = state => ({
+  contacts: state.contacts
+});
+
+export default connect(MapStateToProps, {
+  getContacts
+})(App);

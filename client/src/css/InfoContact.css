@@ -5,14 +5,13 @@
 }
 
 .headerInfo {
-  /* border: 1px solid black; */
-  padding: 8%;
+  padding: 5%;
   background-color: teal;
+  font-size: 35px;
 }
 .MainInfo {
   padding: 1.5%;
   display: flex;
-  /* border: 1px solid black; */
   color: black;
   text-align: left;
   margin-top: 2%;
@@ -43,11 +42,11 @@
 }
 .IconPostionEdit {
   position: absolute;
-  top: 247px;
-  margin-left: 27%;
+  top: 200px;
+  margin-left: 25%;
 }
 .IconPostionDelete {
   position: absolute;
-  top: 247px;
-  margin-left: 31%;
+  top: 200px;
+  margin-left: 30%;
 }

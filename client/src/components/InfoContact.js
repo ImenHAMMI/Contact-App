@@ -1,16 +1,17 @@
 import React from "react";
-import axios from "axios";
 import PhoneRoundedIcon from "@material-ui/icons/PhoneRounded";
 import EmailRoundedIcon from "@material-ui/icons/EmailRounded";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
+
+import { connect } from "react-redux";
+import { getContact, deleteContact } from "../js/actions/actionContact";
 
 import "../css/InfoContact.css";
 import ModalContact from "./ModalContact";
 
 class InfoContact extends React.Component {
   state = {
-    contact: {},
     open: false
   };
 
@@ -20,38 +21,24 @@ class InfoContact extends React.Component {
     });
   };
 
-  getContact = () => {
-    const id = this.props.match.params.id;
-    axios
-      .get(`/contact/${id}`)
-      .then(res => this.setState({ contact: res.data[0] }))
-      .catch(error => console.error(error));
-  };
   componentDidMount() {
-    const id = this.props.match.params.id;
-    axios
-      .get(`/contact/${id}`)
-      .then(res => this.setState({ contact: res.data[0] }))
-      .catch(error => console.error(error));
-  }
-
-  componentDidUpdate() {
-    this.getContact();
+    this.props.getContact(this.props.match.params.id);
   }
 
   handleClick = () => {
-    this.props.deleteContact(this.state.contact._id);
+    this.props.deleteContact(this.props.contact._id);
     this.props.history.push("/");
   };
 
   render() {
     const { Name, Mobile, EMail } = {
-      ...this.state.contact
+      ...this.props.contact
     };
-    // console.log(this.state.contact);
-    if (!this.state.contact) {
+
+    if (!this.props.contact) {
       return <p>Loading</p>;
     }
+
     return (
       <div className="Information">
         <div className="headerInfo">
@@ -90,9 +77,8 @@ class InfoContact extends React.Component {
           <ModalContact
             open={this.state.open}
             handleOpen={this.handleOpen}
-            addContact={this.props.addContact}
             isEdit={true}
-            contact={this.state.contact}
+            contact={this.props.contact}
           />
         ) : null}
       </div>
@@ -100,4 +86,9 @@ class InfoContact extends React.Component {
   }
 }
 
-export default InfoContact;
+const mapStateToProps = state => ({
+  contact: state.contact
+});
+export default connect(mapStateToProps, { getContact, deleteContact })(
+  InfoContact
+);

@@ -8,6 +8,9 @@ import EmailRoundedIcon from "@material-ui/icons/EmailRounded";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import FaceRoundedIcon from "@material-ui/icons/FaceRounded";
 
+import { connect } from "react-redux";
+import { addContact, editContact } from "../js/actions/actionContact";
+
 import "../css/ModalContact.css";
 
 class ModalContact extends React.Component {
@@ -36,17 +39,14 @@ class ModalContact extends React.Component {
   }
 
   changeHandler = e => this.setState({ [e.target.name]: e.target.value });
-
   onSubmit = () => {
     const isFilled = this.state.Name && this.state.Mobile && this.state.EMail;
-    // const regmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (isFilled) {
-      // if (!regmail.test(this.state.EMail)) alert("Please enter a valid email");
-      // else {
-      this.props.addContact(this.state);
+      this.props.isEdit
+        ? this.props.editContact(this.props.contact._id, this.state)
+        : this.props.addContact(this.state);
       this.props.handleOpen();
-      // }
     }
     this.setState({
       Name: "",
@@ -62,15 +62,14 @@ class ModalContact extends React.Component {
     return (
       <div>
         {!isEdit ? (
-          <div className="AddContact" onClick={handleOpen}>
-            <PersonAddRoundedIcon
-              style={{
-                color: "rgba(0, 0, 0, 0.54)",
-                fontSize: 50
-              }}
-            />
-            <span>Add Contact</span>
-          </div>
+          <PersonAddRoundedIcon
+            className="IconAction"
+            onClick={handleOpen}
+            style={{
+              color: "rgba(0, 0, 0, 0.54)",
+              fontSize: 60
+            }}
+          />
         ) : null}
         <Modal
           aria-labelledby="transition-modal-title"
@@ -145,4 +144,7 @@ class ModalContact extends React.Component {
   }
 }
 
-export default ModalContact;
+export default connect(null, {
+  addContact,
+  editContact
+})(ModalContact);
